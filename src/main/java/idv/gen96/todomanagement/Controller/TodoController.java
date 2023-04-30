@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class TodoController {
     private TodoService todoService;
 
-
+    //POST http://localhost:8080/api/todos
     @PostMapping
     public ResponseEntity<TodoDTO> addTodo(@RequestBody TodoDTO todoDTO){
         TodoDTO savedTodo = todoService.addTodo(todoDTO);
