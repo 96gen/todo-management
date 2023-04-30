@@ -14,10 +14,19 @@ public class TodoController {
     private TodoService todoService;
 
     //POST http://localhost:8080/api/todos
+    //建立Todo
     @PostMapping
     public ResponseEntity<TodoDTO> addTodo(@RequestBody TodoDTO todoDTO){
         TodoDTO savedTodo = todoService.addTodo(todoDTO);
 
         return new ResponseEntity<>(savedTodo, HttpStatus.CREATED);
+    }
+
+    //GET http://localhost:8080/api/todos/{id}
+    //傳入id查詢todo
+    @GetMapping("/{id}")
+    public ResponseEntity<TodoDTO> getTodo(@PathVariable("id") long todoId){
+        TodoDTO todoDTO = todoService.getTodo(todoId);
+        return new ResponseEntity<>(todoDTO, HttpStatus.OK);
     }
 }

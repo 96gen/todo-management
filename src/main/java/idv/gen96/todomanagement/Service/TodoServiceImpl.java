@@ -23,7 +23,12 @@ public class TodoServiceImpl implements TodoService{
         //將儲存後的Todo entity轉換成TodoDTO
         TodoDTO savedTodoDTO = modelMapper.map(savedTodo, TodoDTO.class);
 
-
         return savedTodoDTO;
+    }
+
+    @Override
+    public TodoDTO getTodo(long id) {
+        Todo todo = todoRepository.findById(id).get();
+        return modelMapper.map(todo, TodoDTO.class);
     }
 }

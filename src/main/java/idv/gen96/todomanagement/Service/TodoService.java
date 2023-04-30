@@ -4,4 +4,6 @@ import idv.gen96.todomanagement.DTO.TodoDTO;
 
 public interface TodoService {
     TodoDTO addTodo(TodoDTO todoDTO);
+
+    TodoDTO getTodo(long id);
 }
