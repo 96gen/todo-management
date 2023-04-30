@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//DTO負責前端和Controller之間的資料傳遞
 public class TodoDTO {
     private long id;
     private String title;
