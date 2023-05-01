@@ -57,11 +57,20 @@ public class TodoController {
         return ResponseEntity.ok("Todo deleted successfully!");
     }
 
+    //只設定一個值，不是多個值，所以用PATCH
     //PATCH http://localhost:8080/api/todos/{id}/complete
     //將指定id的completd設定成true
     @PatchMapping("/{id}/complete")
     public ResponseEntity<TodoDTO> completeTodo(@PathVariable("id") long id){
-        TodoDTO updatedTodo = todoService.completeTodo(id);
-        return ResponseEntity.ok(updatedTodo);
+        TodoDTO updatedTodoDTO = todoService.completeTodo(id);
+        return ResponseEntity.ok(updatedTodoDTO);
+    }
+
+    //PATCH http://localhost:8080/api/todos/{id}/in-complete
+    //將指定id的completd設定成false
+    @PatchMapping("/{id}/in-complete")
+    public ResponseEntity<TodoDTO> incompleteTodo(@PathVariable("id") long id){
+        TodoDTO updatedTodoDTO = todoService.incompleteTodo(id);
+        return ResponseEntity.ok(updatedTodoDTO);
     }
 }
