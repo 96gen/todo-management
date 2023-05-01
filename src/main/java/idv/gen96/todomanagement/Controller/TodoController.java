@@ -56,4 +56,12 @@ public class TodoController {
         todoService.deleteTodo(id);
         return ResponseEntity.ok("Todo deleted successfully!");
     }
+
+    //PATCH http://localhost:8080/api/todos/{id}/complete
+    //將指定id的completd設定成true
+    @PatchMapping("/{id}/complete")
+    public ResponseEntity<TodoDTO> completeTodo(@PathVariable("id") long id){
+        TodoDTO updatedTodo = todoService.completeTodo(id);
+        return ResponseEntity.ok(updatedTodo);
+    }
 }
