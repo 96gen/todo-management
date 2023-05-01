@@ -1,11 +1,14 @@
 package idv.gen96.todomanagement.Controller;
 
 import idv.gen96.todomanagement.DTO.TodoDTO;
+import idv.gen96.todomanagement.Entity.Todo;
 import idv.gen96.todomanagement.Service.TodoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/todos")
@@ -28,5 +31,13 @@ public class TodoController {
     public ResponseEntity<TodoDTO> getTodo(@PathVariable("id") long todoId){
         TodoDTO todoDTO = todoService.getTodo(todoId);
         return new ResponseEntity<>(todoDTO, HttpStatus.OK);
+    }
+
+    //GET http://localhost:8080/api/todos
+    //取得全部Todo資料
+    @GetMapping
+    public ResponseEntity<List<TodoDTO>> getAllTodos(){
+        List<TodoDTO> todos = todoService.getAllTodos();
+        return ResponseEntity.ok(todos);
     }
 }
