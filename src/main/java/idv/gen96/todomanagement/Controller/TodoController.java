@@ -40,4 +40,12 @@ public class TodoController {
         List<TodoDTO> todos = todoService.getAllTodos();
         return ResponseEntity.ok(todos);
     }
+
+    //PUT http://localhost:8080/api/todos/{id}
+    //修改指定id的Todo資料
+    @PutMapping("/{id}")
+    public ResponseEntity<TodoDTO> updateTodo(@RequestBody TodoDTO todoDTO, @PathVariable("id") long id){
+        TodoDTO updateTodoDTO = todoService.updateTodo(todoDTO, id);
+        return ResponseEntity.ok(updateTodoDTO);
+    }
 }
