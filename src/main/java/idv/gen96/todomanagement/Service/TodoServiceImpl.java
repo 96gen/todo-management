@@ -2,6 +2,7 @@ package idv.gen96.todomanagement.Service;
 
 import idv.gen96.todomanagement.DTO.TodoDTO;
 import idv.gen96.todomanagement.Entity.Todo;
+import idv.gen96.todomanagement.Exception.ResourceNotFoundException;
 import idv.gen96.todomanagement.Repository.TodoRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,7 +29,9 @@ public class TodoServiceImpl implements TodoService{
 
     @Override
     public TodoDTO getTodo(long id) {
-        Todo todo = todoRepository.findById(id).get();
+        //找尋指定id的資料，當找不到時會就回傳Todo not found with id:[0-9]*，而不是ResourceNotFoundException
+        Todo todo = todoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
         return modelMapper.map(todo, TodoDTO.class);
     }
 }
