@@ -48,4 +48,12 @@ public class TodoController {
         TodoDTO updateTodoDTO = todoService.updateTodo(todoDTO, id);
         return ResponseEntity.ok(updateTodoDTO);
     }
+
+    //DELETE http://localhost:8080/api/todos/{id}
+    //刪除指定id的todo
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable("id") long id){
+        todoService.deleteTodo(id);
+        return ResponseEntity.ok("Todo deleted successfully!");
+    }
 }
