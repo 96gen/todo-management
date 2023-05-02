@@ -5,7 +5,7 @@ import idv.gen96.todomanagement.DTO.TodoDTO;
 import java.util.List;
 
 public interface TodoService {
-    TodoDTO addTodo(TodoDTO todoDTO);
+    TodoDTO createTodo(TodoDTO todoDTO);
 
     TodoDTO getTodo(long id);
 

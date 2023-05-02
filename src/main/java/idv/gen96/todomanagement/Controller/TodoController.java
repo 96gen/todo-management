@@ -19,8 +19,8 @@ public class TodoController {
     //POST http://localhost:8080/api/todos
     //建立Todo
     @PostMapping
-    public ResponseEntity<TodoDTO> addTodo(@RequestBody TodoDTO todoDTO){
-        TodoDTO savedTodo = todoService.addTodo(todoDTO);
+    public ResponseEntity<TodoDTO> createTodo(@RequestBody TodoDTO todoDTO){
+        TodoDTO savedTodo = todoService.createTodo(todoDTO);
 
         return new ResponseEntity<>(savedTodo, HttpStatus.CREATED);
     }

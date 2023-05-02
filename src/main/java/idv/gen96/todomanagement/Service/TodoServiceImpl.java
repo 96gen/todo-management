@@ -17,7 +17,7 @@ public class TodoServiceImpl implements TodoService{
     private TodoRepository todoRepository;
     private ModelMapper modelMapper;
     @Override
-    public TodoDTO addTodo(TodoDTO todoDTO) {
+    public TodoDTO createTodo(TodoDTO todoDTO) {
         //將TodoDTO轉換成Todo entity，使用modelMapper就不需要寫重複性高的程式碼
         Todo todo = modelMapper.map(todoDTO, Todo.class);
 
@@ -33,8 +33,7 @@ public class TodoServiceImpl implements TodoService{
     @Override
     public TodoDTO getTodo(long id) {
         //找尋指定id的資料，當找不到時會就回傳Todo not found with id:[0-9]*，而不是ResourceNotFoundException
-        Todo todo = todoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
+        Todo todo = findOrElseThrow(id);
         return modelMapper.map(todo, TodoDTO.class);
     }
 
@@ -49,8 +48,7 @@ public class TodoServiceImpl implements TodoService{
     //修改Todo的資料
     @Override
     public TodoDTO updateTodo(TodoDTO todoDTO, long id) {
-        Todo todo = todoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
+        Todo todo = findOrElseThrow(id);
         todo.setTitle(todoDTO.getTitle());
         todo.setDescription(todoDTO.getDescription());
         todo.setCompleted(todo.isCompleted());
@@ -61,16 +59,14 @@ public class TodoServiceImpl implements TodoService{
     //刪除指定id的todo
     @Override
     public void deleteTodo(long id) {
-        Todo todo = todoRepository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
+        Todo todo = findOrElseThrow(id);
         todoRepository.deleteById(id);
     }
 
     //將指定id的completd設定成true
     @Override
     public TodoDTO completeTodo(long id) {
-        Todo todo = todoRepository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
+        Todo todo = findOrElseThrow(id);
         todo.setCompleted(Boolean.TRUE);
         Todo updatedTodo = todoRepository.save(todo);
         return modelMapper.map(updatedTodo, TodoDTO.class);
@@ -79,10 +75,14 @@ public class TodoServiceImpl implements TodoService{
     //將指定id的completd設定成false
     @Override
     public TodoDTO incompleteTodo(long id) {
-        Todo todo = todoRepository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
+        Todo todo = findOrElseThrow(id);
         todo.setCompleted(Boolean.FALSE);
         Todo updatedTodo = todoRepository.save(todo);
         return modelMapper.map(updatedTodo, TodoDTO.class);
+    }
+
+    public Todo findOrElseThrow(long id){
+        return todoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Todo not found with id:" + id));
     }
 }
